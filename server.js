@@ -30,10 +30,6 @@ io.on('connection', (socket) => {
   });
 });
 
-// app.get('/', (req, res) => {
-
-//   res.send('Connectd');
-// });
 //start server at port 5000
 const HTTP_PORT = 5000;
 
