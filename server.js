@@ -2,8 +2,8 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const server = require('http').createServer(app);
-const ioSocket = require('socket.io');
-const io = new ioSocket.Server({ server: server });
+const { Server } = require('socket.io');
+const io = new Server(server);
 //configure app to save static files
 app.use(express.static(path.join(__dirname + '/public')));
 
@@ -11,9 +11,11 @@ app.use(express.static(path.join(__dirname + '/public')));
 io.on('connection', (socket) => {
   console.log('Client connected');
   socket.on('sender-join', (data) => {
+    console.log('sender-Joining :', data);
     socket.join(data.uid);
   });
   socket.on('receiver-join', (data) => {
+    console.log('Receiver -Joining :', data);
     socket.join(data.uid);
     socket.in(data.sender_uid).emit('init', data.uid);
   });
